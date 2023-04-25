@@ -59,21 +59,28 @@ const futureId = 9
 console.log(holidays.name || `ID ${futureId} not created yet`)
 
 // Make a copy of Christmas 
-let copied = { ...holidays[christmas] }
+const copied ={ id: 6,
+    name: 'X-mas',
+    date: new Date(`25 December ${currentYear} 13:25`),
+}
 
 // Change name and date of Christmas 
-copied.name = 'X-mas Day'
 copied.date.setHours(0, 0, 0, 0)
+const epoch = new Date(copied.date).getTime()
 
 // Check if new date is earlier than old date
-const isEarlier = copied.date < holidays[6].date
+const isEarlier = epoch < new Date(holidays[6].date).getTime()
+
+if (isEarlier) {
 console.log('New date is earlier:', isEarlier)
+holidays[6]= copied
 
 // Log changes made to copied object
 console.log('ID change:', holidays[6].id != copied.id)
 console.log('Name change:', holidays[6].name = copied.name)
-console.log('Date change:', holidays[6].date = copied.date)
-
+const ChangedDate = holidays[6].date = copied.date
+console.log('Date change:', ChangedDate.toLocaleDateString('en-GB'))
+}
 // Log the first and last holidays of the year
 const firstHolidayTimestamp = Math.min(
     new Date(holidays[0].date).getTime(),
@@ -100,9 +107,9 @@ const lastHolidayTimestamp = Math.max(
 )
 
 const firstDay = new Date(firstHolidayTimestamp).getDate()
-const firstMonth = new Date(firstHolidayTimestamp).getMonth() + 1
+const firstMonth = new Date(firstHolidayTimestamp).getMonth()+1
 const lastDay = new Date(lastHolidayTimestamp).getDate()
-const lastMonth = new Date(lastHolidayTimestamp).getMonth() + 1
+const lastMonth = new Date(lastHolidayTimestamp).getMonth()+1
 
 console.log(`${firstDay}/${firstMonth}/${currentYear}`)
 console.log(`${lastDay}/${lastMonth}/${currentYear}`)
@@ -110,5 +117,5 @@ console.log(`${lastDay}/${lastMonth}/${currentYear}`)
 // Log a random holiday date and format date as well
 const randomIndex = Math.floor(Math.random() * Object.keys(holidays).length)
 const randomHoliday = new Date(holidays[randomIndex].date)
-const formattedDate = randomHoliday.toLocaleDateString('en-GB')
-console.log(randomHoliday)
+const formatedDate = randomHoliday.toLocaleDateString('en-GB')
+console.log(formatedDate)
